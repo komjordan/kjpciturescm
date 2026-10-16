@@ -46,7 +46,49 @@ npm start              # http://localhost:3000  et  http://localhost:3000/admin
 
 ---
 
-# 🖥️ Hébergement sur Proxmox
+# ☁️ Hébergement sur un VPS (recommandé : IONOS, OVH…)
+
+Un VPS a une **IP publique fixe** : il n'y a **aucun port à ouvrir sur votre box**, et le site reste en ligne même si votre connexion maison coupe.
+Un VPS Debian 12 avec **1 Go de RAM** suffit.
+
+## 1. Pointer un domaine vers le VPS
+
+Récupérez l'**IP publique** du VPS (IONOS Cloud Panel → Serveurs), puis choisissez l'une de ces options :
+
+- **Gratuit, DuckDNS** : sur https://www.duckdns.org, créez `kjpictures`, saisissez l'IP du VPS dans *current ip* et cliquez sur **update ip**. L'IP d'un VPS ne change pas, donc pas besoin de mise à jour automatique.
+- **Gratuit, si vous avez déjà un domaine** (ex. `komjordan.fr`) : créez un sous-domaine `kjpictures.komjordan.fr` en enregistrement **A** vers l'IP du VPS.
+- **Plus tard, domaine payant** : voir la section dédiée plus bas.
+
+## 2. Pare-feu IONOS
+
+IONOS Cloud Panel → **Réseau → Politiques de pare-feu** : vérifiez que **TCP 80** et **TCP 443** sont autorisés en entrée (en plus du 22 pour SSH).
+
+## 3. Installer (en SSH, en root)
+
+```bash
+apt-get update && apt-get install -y curl
+curl -fsSL https://raw.githubusercontent.com/komjordan/kjpciturescm/claude/kj-pictures-showcase-site-5lqdk2/deploy/install.sh -o install.sh
+bash install.sh kjpictures.duckdns.org
+```
+
+Le script s'adapte à ce qui tourne déjà sur le VPS :
+
+| Déjà sur le VPS | Ce que fait le script |
+|---|---|
+| Rien | Installe **Caddy**, avec HTTPS automatique |
+| Caddy (autres sites) | Ajoute le site sans toucher aux autres (`/etc/caddy/sites/kjpictures.caddy`) |
+| Nginx (autres sites) | Ajoute un *server block* Nginx et obtient le certificat avec Certbot |
+| Apache | Affiche la configuration à ajouter |
+
+Si le port interne 3000 est déjà pris par une autre application : `APP_PORT=3080 bash install.sh kjpictures.duckdns.org`.
+
+✅ Site : **https://kjpictures.duckdns.org** · Admin : **https://kjpictures.duckdns.org/admin**
+
+Pour l'entretien (mise à jour, sauvegardes, mot de passe oublié), voir le tableau « Entretien » plus bas : c'est le même sur VPS et sur Proxmox.
+
+---
+
+# 🖥️ Variante : hébergement à la maison sur Proxmox (ports de la box à ouvrir)
 
 ## 1. Créer le conteneur LXC
 
@@ -121,19 +163,18 @@ Placez un reverse proxy (Caddy, Nginx Proxy Manager…) devant pour le HTTPS.
 
 1. Achetez le domaine, par exemple `kjpictures.com` (environ 10–15 € par an chez Cloudflare, OVH, Namecheap…) ou un `.cm`
 2. Dans la zone DNS du domaine :
-   - `kjpictures.com` → enregistrement **A** vers l'IP publique de la box
-     *(ou, si l'IP change souvent : `www` en **CNAME** vers `kjpictures.duckdns.org`)*
+   - `kjpictures.com` → enregistrement **A** vers l'IP publique du VPS (ou de la box)
    - `www` → **CNAME** vers `kjpictures.com`
-3. Dans le conteneur, modifiez `/etc/caddy/Caddyfile` :
+3. Sur le serveur, modifiez la première ligne de `/etc/caddy/sites/kjpictures.caddy` :
    ```
    kjpictures.com, www.kjpictures.com, kjpictures.duckdns.org {
    ```
    puis `systemctl reload caddy`. Le certificat HTTPS du nouveau domaine est créé tout seul.
 
-> **Pas de ports ouvrables (box 4G/5G, CGNAT) ?** Utilisez **Cloudflare Tunnel** : le domaine doit être géré par Cloudflare (donc après l'achat), mais il n'y a aucun port à ouvrir.
+   *(avec Nginx : `certbot --nginx -d kjpictures.com -d www.kjpictures.com` puis ajoutez les noms dans `server_name`)*
 
 ---
 
 ## GitHub Pages
 
-La version GitHub Pages (https://komjordan.github.io/kjpciturescm/) reste une **vitrine statique** : elle affiche le contenu de départ (`data/content.seed.json`), mais l'admin n'y fonctionne pas. Une fois le serveur Proxmox en ligne, désactivez Pages (Settings → Pages) pour éviter d'avoir deux versions différentes du site.
+La version GitHub Pages (https://komjordan.github.io/kjpciturescm/) reste une **vitrine statique** : elle affiche le contenu de départ (`data/content.seed.json`), mais l'admin n'y fonctionne pas. Une fois le serveur (VPS ou Proxmox) en ligne, désactivez Pages (Settings → Pages) pour éviter d'avoir deux versions différentes du site.
