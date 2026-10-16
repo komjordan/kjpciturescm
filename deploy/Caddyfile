@@ -1,0 +1,10 @@
+# Remplacez le nom par votre domaine (DuckDNS aujourd'hui, domaine payant plus tard).
+# Caddy obtient et renouvelle automatiquement le certificat HTTPS (Let's Encrypt).
+# Pour plusieurs domaines : kjpictures.duckdns.org, kjpictures.com, www.kjpictures.com {
+kjpictures.duckdns.org {
+	encode zstd gzip
+	request_body {
+		max_size 600MB
+	}
+	reverse_proxy 127.0.0.1:3000
+}

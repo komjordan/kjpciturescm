@@ -56,6 +56,7 @@
       <a href="#accueil">Accueil</a>
       <a href="#studio">Le studio</a>
       <a href="#services">Services</a>
+      <a href="#packages">Packages</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#contact">Contact</a>
       <a href="https://wa.me/237695144531?text=Bonjour%20KJ%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20un%20shooting." class="btn btn--gold btn--sm" target="_blank" rel="noopener">Réserver</a>
@@ -90,6 +91,7 @@
         </p>
         <div class="hero__cta reveal-up">
           <a href="#portfolio" class="btn btn--gold magnetic">Voir le portfolio</a>
+          <a href="#packages" class="btn btn--outline-gold magnetic">Nos packages</a>
           <a href="https://wa.me/237695144531?text=Bonjour%20KJ%20Pictures%2C%20je%20souhaite%20r%C3%A9server%20un%20shooting." class="btn btn--ghost magnetic" target="_blank" rel="noopener">Réserver sur WhatsApp</a>
         </div>
       </div>
@@ -132,11 +134,18 @@
             <li>Déplacement possible pour vos événements</li>
           </ul>
           <div class="stats">
-            <div class="stat reveal-up"><strong class="count" data-to="70">0</strong><span>+ créations publiées</span></div>
+            <div class="stat reveal-up"><strong class="count" id="photoCount" data-to="70">0</strong><span>+ créations publiées</span></div>
             <div class="stat reveal-up"><strong class="count" data-to="6">0</strong><span>univers photo</span></div>
             <div class="stat reveal-up"><strong class="count" data-to="100">0</strong><span>% passion</span></div>
           </div>
         </div>
+      </div>
+      <div class="container gear" id="gear" hidden>
+        <div class="gear__head">
+          <p class="eyebrow reveal-up">Coulisses</p>
+          <h3 class="gear__title reveal-up">Notre studio &amp; notre <span class="gold-text">matériel</span></h3>
+        </div>
+        <div class="gear__track" id="gearTrack"></div>
       </div>
     </section>
 
@@ -188,6 +197,19 @@
       </div>
     </section>
 
+    <!-- Packages -->
+    <section class="section packages" id="packages">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal-up">Nos packages</p>
+          <h2 class="title reveal-up">Des formules <span class="gold-text">claires</span>, sans surprise</h2>
+          <p class="section__lead reveal-up">Choisissez votre package et réservez-le en un clic sur WhatsApp.</p>
+        </div>
+        <div class="packages__grid" id="packagesGrid"></div>
+        <p class="packages__note reveal-up">Besoin d'une formule sur mesure (mariage, événement, entreprise)&nbsp;? <a href="#contact">Demandez un devis</a>.</p>
+      </div>
+    </section>
+
     <!-- Portfolio -->
     <section class="section portfolio" id="portfolio">
       <div class="container">
@@ -195,14 +217,7 @@
           <p class="eyebrow reveal-up">Portfolio</p>
           <h2 class="title reveal-up">Nos dernières <span class="gold-text">créations</span></h2>
         </div>
-        <div class="filters reveal-up" id="filters" role="tablist">
-          <button class="filter is-active" data-filter="all">Tout</button>
-          <button class="filter" data-filter="portrait">Portraits</button>
-          <button class="filter" data-filter="enfant">Enfants &amp; Anniversaires</button>
-          <button class="filter" data-filter="culture">Culture &amp; Tradition</button>
-          <button class="filter" data-filter="duo">Duo &amp; Famille</button>
-          <button class="filter" data-filter="pro">Professionnel</button>
-        </div>
+        <div class="filters reveal-up" id="filters" role="tablist"></div>
         <div class="gallery" id="gallery"></div>
         <div class="gallery__more">
           <button class="btn btn--ghost" id="loadMore">Voir plus de photos</button>
@@ -280,6 +295,7 @@
               <option value="Portrait / Mode">Portrait / Mode</option>
               <option value="Culture / Tradition">Culture / Tradition</option>
               <option value="Famille / Amis">Famille / Amis</option>
+              <optgroup label="Packages" id="packageOptions"></optgroup>
             </select>
             <span>Type de shooting</span>
           </label>

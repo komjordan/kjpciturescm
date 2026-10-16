@@ -1,0 +1,26 @@
+[Unit]
+Description=KJ Pictures - site vitrine et admin
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kjpictures
+Group=kjpictures
+WorkingDirectory=/opt/kjpictures
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOST=127.0.0.1
+Environment=STORAGE_DIR=/var/lib/kjpictures
+ExecStart=/usr/bin/node server/server.js
+Restart=on-failure
+RestartSec=3
+# Durcissement
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/kjpictures
+
+[Install]
+WantedBy=multi-user.target

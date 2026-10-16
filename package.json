@@ -1,0 +1,17 @@
+{
+  "name": "kjpictures-site",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Site vitrine KJ Pictures avec espace d'administration",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "set-password": "node server/set-password.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^2.0.2",
+    "sharp": "^0.34.4"
+  }
+}

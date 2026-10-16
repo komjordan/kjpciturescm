@@ -7,30 +7,14 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  /* ---------- Données du portfolio ---------- */
-  const CATS = {
-    portrait: 'Portrait',
-    enfant: 'Enfants & Anniversaires',
-    culture: 'Culture & Tradition',
-    duo: 'Duo & Famille',
-    pro: 'Professionnel'
-  };
-  const PHOTOS = [
-    ['034', 'portrait'], ['044', 'culture'], ['020', 'enfant'], ['027', 'portrait'], ['005', 'duo'],
-    ['029', 'pro'], ['064', 'culture'], ['021', 'enfant'], ['025', 'portrait'], ['016', 'duo'],
-    ['045', 'culture'], ['058', 'enfant'], ['013', 'portrait'], ['002', 'pro'], ['066', 'culture'],
-    ['039', 'enfant'], ['033', 'portrait'], ['043', 'duo'], ['018', 'culture'], ['054', 'enfant'],
-    ['081', 'portrait'], ['003', 'pro'], ['050', 'culture'], ['036', 'enfant'], ['015', 'portrait'],
-    ['079', 'duo'], ['022', 'culture'], ['057', 'enfant'], ['051', 'portrait'], ['030', 'pro'],
-    ['046', 'culture'], ['019', 'enfant'], ['007', 'portrait'], ['028', 'duo'], ['061', 'culture'],
-    ['040', 'enfant'], ['076', 'portrait'], ['024', 'duo'], ['065', 'culture'], ['062', 'enfant'],
-    ['012', 'portrait'], ['047', 'duo'], ['077', 'culture'], ['048', 'enfant'], ['035', 'portrait'],
-    ['023', 'duo'], ['067', 'culture'], ['055', 'enfant'], ['026', 'portrait'], ['031', 'culture'],
-    ['042', 'enfant'], ['008', 'portrait'], ['037', 'culture'], ['049', 'enfant'], ['009', 'portrait'],
-    ['041', 'culture'], ['059', 'enfant'], ['010', 'portrait'], ['038', 'culture'], ['017', 'enfant'],
-    ['011', 'portrait'], ['032', 'pro'], ['056', 'enfant'], ['014', 'portrait'], ['063', 'enfant'],
-    ['052', 'portrait'], ['053', 'portrait'], ['006', 'portrait'], ['078', 'portrait'], ['080', 'portrait']
-  ].map(([id, cat]) => ({ id, cat, full: `assets/img/gallery/kj-${id}.webp`, thumb: `assets/img/thumbs/kj-${id}.webp` }));
+  /* ---------- Données (API sur le serveur, fichier statique en secours) ---------- */
+  const WA = '237695144531';
+  const waLink = (text) => `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmtPrice = (n) => Number(n).toLocaleString('fr-FR').replace(/[\u202f\u00a0]/g, ' ');
+  const loadContent = () => fetch('api/content', { cache: 'no-cache' })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .catch(() => fetch('data/content.seed.json').then(r => r.json()));
 
   /* ---------- Loader ---------- */
   const loader = $('#loader');
@@ -188,20 +172,21 @@
   $$('.count').forEach(c => countObs.observe(c));
 
   /* ---------- Effet 3D (tilt) ---------- */
-  if (finePointer && !reduceMotion) {
-    $$('.tilt').forEach(el => {
-      el.addEventListener('mousemove', e => {
-        const r = el.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - .5;
-        const y = (e.clientY - r.top) / r.height - .5;
-        el.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-6px)`;
-      });
-      el.addEventListener('mouseleave', () => {
-        el.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1)';
-        el.style.transform = '';
-        setTimeout(() => (el.style.transition = ''), 700);
-      });
+  function addTilt(el) {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      el.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-6px)`;
     });
+    el.addEventListener('mouseleave', () => {
+      el.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1)';
+      el.style.transform = '';
+      setTimeout(() => (el.style.transition = ''), 700);
+    });
+  }
+  if (finePointer && !reduceMotion) {
+    $$('.tilt').forEach(addTilt);
 
     /* Boutons magnétiques */
     $$('.magnetic').forEach(el => {
@@ -227,65 +212,22 @@
     });
   }
 
-  /* ---------- Portfolio : filtres + chargement progressif ---------- */
-  const gallery = $('#gallery');
-  const moreBtn = $('#loadMore');
-  const PAGE = 16;
-  let filter = 'all', shown = PAGE, visibleList = [];
-
-  const itemObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-in');
-      itemObs.unobserve(e.target);
-    });
-  }, { threshold: .1 });
-
-  function renderGallery(animateAll = true) {
-    visibleList = PHOTOS.filter(p => filter === 'all' || p.cat === filter);
-    const slice = visibleList.slice(0, shown);
-    const already = animateAll ? 0 : gallery.children.length;
-    if (animateAll) gallery.innerHTML = '';
-    slice.slice(already).forEach((p, i) => {
-      const fig = document.createElement('figure');
-      fig.className = 'g-item' + ((already + i) % 3 === 1 ? ' is-tall' : '');
-      fig.style.transitionDelay = `${(i % 8) * 60}ms`;
-      fig.innerHTML = `<img src="${p.thumb}" alt="KJ Pictures — ${CATS[p.cat]}" loading="lazy" decoding="async"><figcaption>${CATS[p.cat]}</figcaption>`;
-      fig.addEventListener('click', () => openLightbox(already + i));
-      gallery.appendChild(fig);
-      itemObs.observe(fig);
-    });
-    moreBtn.parentElement.hidden = shown >= visibleList.length;
-  }
-
-  $$('#filters .filter').forEach(btn => btn.addEventListener('click', () => {
-    if (btn.classList.contains('is-active')) return;
-    $$('#filters .filter').forEach(b => b.classList.toggle('is-active', b === btn));
-    filter = btn.dataset.filter;
-    shown = PAGE;
-    gallery.style.opacity = '0';
-    setTimeout(() => { renderGallery(); gallery.style.opacity = ''; }, 250);
-  }));
-  gallery.style.transition = 'opacity .25s';
-  moreBtn.addEventListener('click', () => { shown += PAGE; renderGallery(false); });
-  renderGallery();
-
-  /* ---------- Lightbox ---------- */
+  /* ---------- Lightbox (portfolio et studio) ---------- */
   const lb = $('#lightbox'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
-  let lbIndex = 0;
+  let lbList = [], lbIndex = 0;
   function showLb(i) {
-    lbIndex = (i + visibleList.length) % visibleList.length;
-    const p = visibleList[lbIndex];
+    lbIndex = (i + lbList.length) % lbList.length;
+    const p = lbList[lbIndex];
     lbImg.classList.remove('is-switching');
     void lbImg.offsetWidth;
-    lbImg.src = p.full;
-    lbImg.alt = `KJ Pictures — ${CATS[p.cat]}`;
+    lbImg.src = p.src;
+    lbImg.alt = `KJ Pictures — ${p.label}`;
     lbImg.classList.add('is-switching');
-    lbCap.textContent = `${CATS[p.cat]} · ${lbIndex + 1} / ${visibleList.length}`;
-    // Précharge la suivante
-    new Image().src = visibleList[(lbIndex + 1) % visibleList.length].full;
+    lbCap.textContent = `${p.label} · ${lbIndex + 1} / ${lbList.length}`;
+    new Image().src = lbList[(lbIndex + 1) % lbList.length].src; // précharge la suivante
   }
-  function openLightbox(i) {
+  function openLightbox(list, i) {
+    lbList = list;
     showLb(i);
     lb.classList.add('is-open');
     lb.setAttribute('aria-hidden', 'false');
@@ -315,14 +257,106 @@
     touchX = null;
   });
 
-  /* ---------- Bandeau photo défilant (lié au scroll) ---------- */
+  const itemObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      itemObs.unobserve(e.target);
+    });
+  }, { threshold: .1 });
+
+  loadContent().then(data => {
+    const catLabel = Object.fromEntries((data.categories || []).map(c => [c.id, c.label]));
+    const photos = (data.photos || []).filter(p => catLabel[p.cat]).map(p => ({ ...p, label: catLabel[p.cat] }));
+    const currency = data.currency || 'FCFA';
+
+    const counter = $('#photoCount');
+    if (counter && photos.length) counter.dataset.to = photos.length;
+
+    /* ----- Packages ----- */
+    const grid = $('#packagesGrid');
+    const packs = data.packages || [];
+    $('#packages').hidden = !packs.length;
+    $$('a[href="#packages"]').forEach(a => { a.hidden = !packs.length; });
+    grid.innerHTML = packs.map(p => `
+      <article class="pack${p.highlight ? ' pack--highlight' : ''} reveal-up">
+        ${p.highlight ? '<span class="pack__badge">Populaire</span>' : ''}
+        <h3 class="pack__name">${esc(p.name)}</h3>
+        ${p.description ? `<p class="pack__desc">${esc(p.description)}</p>` : ''}
+        <p class="pack__price"><strong>${fmtPrice(p.price)}</strong><span>${esc(currency)}</span></p>
+        <ul class="pack__items">${(p.items || []).map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+        <a class="btn ${p.highlight ? 'btn--gold' : 'btn--ghost'} btn--block" target="_blank" rel="noopener"
+           href="${esc(waLink(`Bonjour KJ Pictures 👋\nJe souhaite réserver le « ${p.name} » (${fmtPrice(p.price)} ${currency}).`))}">Réserver ce package</a>
+      </article>`).join('');
+    $$('.pack', grid).forEach((el, i) => { el.style.setProperty('--d', `${Math.min(i, 5) * 0.1}s`); revealObs.observe(el); });
+    if (finePointer && !reduceMotion) $$('.pack', grid).forEach(addTilt);
+    const opts = $('#packageOptions');
+    if (opts) opts.innerHTML = packs.map(p => `<option value="${esc(`${p.name} (${fmtPrice(p.price)} ${currency})`)}">${esc(p.name)} — ${fmtPrice(p.price)} ${esc(currency)}</option>`).join('');
+
+    /* ----- Studio & matériel ----- */
+    const studio = (data.studio || []).map(s => ({ ...s, label: s.caption || 'Le studio' }));
+    const gear = $('#gear');
+    gear.hidden = !studio.length;
+    $('#gearTrack').innerHTML = studio.map((s, i) => `
+      <figure class="gear__item g-item" data-i="${i}">
+        <img src="${esc(s.thumb)}" alt="${esc(s.label)}" loading="lazy" decoding="async">
+        ${s.caption ? `<figcaption>${esc(s.caption)}</figcaption>` : ''}
+      </figure>`).join('');
+    $$('#gearTrack .gear__item').forEach(el => {
+      itemObs.observe(el);
+      el.addEventListener('click', () => openLightbox(studio, +el.dataset.i));
+    });
+
+    /* ----- Portfolio : filtres + chargement progressif ----- */
+    const gallery = $('#gallery');
+    const moreBtn = $('#loadMore');
+    const filtersEl = $('#filters');
+    const PAGE = 16;
+    let filter = 'all', shown = PAGE, visibleList = [];
+    const usedCats = (data.categories || []).filter(c => photos.some(p => p.cat === c.id));
+    filtersEl.innerHTML = [`<button class="filter is-active" data-filter="all">Tout</button>`]
+      .concat(usedCats.map(c => `<button class="filter" data-filter="${esc(c.id)}">${esc(c.label)}</button>`)).join('');
+
+    function renderGallery(animateAll = true) {
+      visibleList = photos.filter(p => filter === 'all' || p.cat === filter);
+      const slice = visibleList.slice(0, shown);
+      const already = animateAll ? 0 : gallery.children.length;
+      if (animateAll) gallery.innerHTML = '';
+      slice.slice(already).forEach((p, i) => {
+        const fig = document.createElement('figure');
+        fig.className = 'g-item' + ((already + i) % 3 === 1 ? ' is-tall' : '');
+        fig.style.transitionDelay = `${(i % 8) * 60}ms`;
+        fig.innerHTML = `<img src="${esc(p.thumb)}" alt="KJ Pictures — ${esc(p.label)}" loading="lazy" decoding="async"><figcaption>${esc(p.label)}</figcaption>`;
+        fig.addEventListener('click', () => openLightbox(visibleList, already + i));
+        gallery.appendChild(fig);
+        itemObs.observe(fig);
+      });
+      moreBtn.parentElement.hidden = shown >= visibleList.length;
+    }
+
+    $$('.filter', filtersEl).forEach(btn => btn.addEventListener('click', () => {
+      if (btn.classList.contains('is-active')) return;
+      $$('.filter', filtersEl).forEach(b => b.classList.toggle('is-active', b === btn));
+      filter = btn.dataset.filter;
+      shown = PAGE;
+      gallery.style.opacity = '0';
+      setTimeout(() => { renderGallery(); gallery.style.opacity = ''; }, 250);
+    }));
+    gallery.style.transition = 'opacity .25s';
+    moreBtn.addEventListener('click', () => { shown += PAGE; renderGallery(false); });
+    renderGallery();
+
+    /* ----- Bandeaux photo défilants ----- */
+    const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(v => v[1]);
+    const fillStrip = (el, list) => {
+      el.innerHTML = list.map(p => `<img src="${esc(p.thumb)}" alt="" loading="lazy" decoding="async">`).join('');
+    };
+    fillStrip($('#stripA'), shuffle(photos).slice(0, 14));
+    fillStrip($('#stripB'), shuffle(photos).slice(0, 14));
+  }).catch(err => console.error('Contenu indisponible', err));
+
+  /* ---------- Parallaxe des bandeaux et de la bannière ---------- */
   const stripA = $('#stripA'), stripB = $('#stripB');
-  const shuffle = arr => arr.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(v => v[1]);
-  const fillStrip = (el, list) => {
-    el.innerHTML = list.map(p => `<img src="${p.thumb}" alt="" loading="lazy" decoding="async">`).join('');
-  };
-  fillStrip(stripA, shuffle(PHOTOS).slice(0, 14));
-  fillStrip(stripB, shuffle(PHOTOS).slice(0, 14));
   const strip = $('.strip');
   const ctaBg = $('.cta-band__bg');
   const parallax = () => {
@@ -351,6 +385,6 @@
       f.get('phone') ? `Mon numéro : ${f.get('phone')}` : '',
       f.get('message') ? `\n${f.get('message')}` : ''
     ].filter(Boolean);
-    window.open(`https://wa.me/237695144531?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+    window.open(waLink(lines.join('\n')), '_blank', 'noopener');
   });
 })();

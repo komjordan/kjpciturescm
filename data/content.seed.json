@@ -1,0 +1,472 @@
+{
+  "categories": [
+    {
+      "id": "portrait",
+      "label": "Portraits"
+    },
+    {
+      "id": "enfant",
+      "label": "Enfants & Anniversaires"
+    },
+    {
+      "id": "culture",
+      "label": "Culture & Tradition"
+    },
+    {
+      "id": "duo",
+      "label": "Duo & Famille"
+    },
+    {
+      "id": "pro",
+      "label": "Professionnel"
+    }
+  ],
+  "photos": [
+    {
+      "id": "kj-034",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-034.webp",
+      "thumb": "assets/img/thumbs/kj-034.webp"
+    },
+    {
+      "id": "kj-044",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-044.webp",
+      "thumb": "assets/img/thumbs/kj-044.webp"
+    },
+    {
+      "id": "kj-020",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-020.webp",
+      "thumb": "assets/img/thumbs/kj-020.webp"
+    },
+    {
+      "id": "kj-027",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-027.webp",
+      "thumb": "assets/img/thumbs/kj-027.webp"
+    },
+    {
+      "id": "kj-005",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-005.webp",
+      "thumb": "assets/img/thumbs/kj-005.webp"
+    },
+    {
+      "id": "kj-029",
+      "cat": "pro",
+      "src": "assets/img/gallery/kj-029.webp",
+      "thumb": "assets/img/thumbs/kj-029.webp"
+    },
+    {
+      "id": "kj-064",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-064.webp",
+      "thumb": "assets/img/thumbs/kj-064.webp"
+    },
+    {
+      "id": "kj-021",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-021.webp",
+      "thumb": "assets/img/thumbs/kj-021.webp"
+    },
+    {
+      "id": "kj-025",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-025.webp",
+      "thumb": "assets/img/thumbs/kj-025.webp"
+    },
+    {
+      "id": "kj-016",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-016.webp",
+      "thumb": "assets/img/thumbs/kj-016.webp"
+    },
+    {
+      "id": "kj-045",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-045.webp",
+      "thumb": "assets/img/thumbs/kj-045.webp"
+    },
+    {
+      "id": "kj-058",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-058.webp",
+      "thumb": "assets/img/thumbs/kj-058.webp"
+    },
+    {
+      "id": "kj-013",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-013.webp",
+      "thumb": "assets/img/thumbs/kj-013.webp"
+    },
+    {
+      "id": "kj-002",
+      "cat": "pro",
+      "src": "assets/img/gallery/kj-002.webp",
+      "thumb": "assets/img/thumbs/kj-002.webp"
+    },
+    {
+      "id": "kj-066",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-066.webp",
+      "thumb": "assets/img/thumbs/kj-066.webp"
+    },
+    {
+      "id": "kj-039",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-039.webp",
+      "thumb": "assets/img/thumbs/kj-039.webp"
+    },
+    {
+      "id": "kj-033",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-033.webp",
+      "thumb": "assets/img/thumbs/kj-033.webp"
+    },
+    {
+      "id": "kj-043",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-043.webp",
+      "thumb": "assets/img/thumbs/kj-043.webp"
+    },
+    {
+      "id": "kj-018",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-018.webp",
+      "thumb": "assets/img/thumbs/kj-018.webp"
+    },
+    {
+      "id": "kj-054",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-054.webp",
+      "thumb": "assets/img/thumbs/kj-054.webp"
+    },
+    {
+      "id": "kj-081",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-081.webp",
+      "thumb": "assets/img/thumbs/kj-081.webp"
+    },
+    {
+      "id": "kj-003",
+      "cat": "pro",
+      "src": "assets/img/gallery/kj-003.webp",
+      "thumb": "assets/img/thumbs/kj-003.webp"
+    },
+    {
+      "id": "kj-050",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-050.webp",
+      "thumb": "assets/img/thumbs/kj-050.webp"
+    },
+    {
+      "id": "kj-036",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-036.webp",
+      "thumb": "assets/img/thumbs/kj-036.webp"
+    },
+    {
+      "id": "kj-015",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-015.webp",
+      "thumb": "assets/img/thumbs/kj-015.webp"
+    },
+    {
+      "id": "kj-079",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-079.webp",
+      "thumb": "assets/img/thumbs/kj-079.webp"
+    },
+    {
+      "id": "kj-022",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-022.webp",
+      "thumb": "assets/img/thumbs/kj-022.webp"
+    },
+    {
+      "id": "kj-057",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-057.webp",
+      "thumb": "assets/img/thumbs/kj-057.webp"
+    },
+    {
+      "id": "kj-051",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-051.webp",
+      "thumb": "assets/img/thumbs/kj-051.webp"
+    },
+    {
+      "id": "kj-030",
+      "cat": "pro",
+      "src": "assets/img/gallery/kj-030.webp",
+      "thumb": "assets/img/thumbs/kj-030.webp"
+    },
+    {
+      "id": "kj-046",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-046.webp",
+      "thumb": "assets/img/thumbs/kj-046.webp"
+    },
+    {
+      "id": "kj-019",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-019.webp",
+      "thumb": "assets/img/thumbs/kj-019.webp"
+    },
+    {
+      "id": "kj-007",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-007.webp",
+      "thumb": "assets/img/thumbs/kj-007.webp"
+    },
+    {
+      "id": "kj-028",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-028.webp",
+      "thumb": "assets/img/thumbs/kj-028.webp"
+    },
+    {
+      "id": "kj-061",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-061.webp",
+      "thumb": "assets/img/thumbs/kj-061.webp"
+    },
+    {
+      "id": "kj-040",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-040.webp",
+      "thumb": "assets/img/thumbs/kj-040.webp"
+    },
+    {
+      "id": "kj-076",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-076.webp",
+      "thumb": "assets/img/thumbs/kj-076.webp"
+    },
+    {
+      "id": "kj-024",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-024.webp",
+      "thumb": "assets/img/thumbs/kj-024.webp"
+    },
+    {
+      "id": "kj-065",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-065.webp",
+      "thumb": "assets/img/thumbs/kj-065.webp"
+    },
+    {
+      "id": "kj-062",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-062.webp",
+      "thumb": "assets/img/thumbs/kj-062.webp"
+    },
+    {
+      "id": "kj-012",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-012.webp",
+      "thumb": "assets/img/thumbs/kj-012.webp"
+    },
+    {
+      "id": "kj-047",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-047.webp",
+      "thumb": "assets/img/thumbs/kj-047.webp"
+    },
+    {
+      "id": "kj-077",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-077.webp",
+      "thumb": "assets/img/thumbs/kj-077.webp"
+    },
+    {
+      "id": "kj-048",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-048.webp",
+      "thumb": "assets/img/thumbs/kj-048.webp"
+    },
+    {
+      "id": "kj-035",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-035.webp",
+      "thumb": "assets/img/thumbs/kj-035.webp"
+    },
+    {
+      "id": "kj-023",
+      "cat": "duo",
+      "src": "assets/img/gallery/kj-023.webp",
+      "thumb": "assets/img/thumbs/kj-023.webp"
+    },
+    {
+      "id": "kj-067",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-067.webp",
+      "thumb": "assets/img/thumbs/kj-067.webp"
+    },
+    {
+      "id": "kj-055",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-055.webp",
+      "thumb": "assets/img/thumbs/kj-055.webp"
+    },
+    {
+      "id": "kj-026",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-026.webp",
+      "thumb": "assets/img/thumbs/kj-026.webp"
+    },
+    {
+      "id": "kj-031",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-031.webp",
+      "thumb": "assets/img/thumbs/kj-031.webp"
+    },
+    {
+      "id": "kj-042",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-042.webp",
+      "thumb": "assets/img/thumbs/kj-042.webp"
+    },
+    {
+      "id": "kj-008",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-008.webp",
+      "thumb": "assets/img/thumbs/kj-008.webp"
+    },
+    {
+      "id": "kj-037",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-037.webp",
+      "thumb": "assets/img/thumbs/kj-037.webp"
+    },
+    {
+      "id": "kj-049",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-049.webp",
+      "thumb": "assets/img/thumbs/kj-049.webp"
+    },
+    {
+      "id": "kj-009",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-009.webp",
+      "thumb": "assets/img/thumbs/kj-009.webp"
+    },
+    {
+      "id": "kj-041",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-041.webp",
+      "thumb": "assets/img/thumbs/kj-041.webp"
+    },
+    {
+      "id": "kj-059",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-059.webp",
+      "thumb": "assets/img/thumbs/kj-059.webp"
+    },
+    {
+      "id": "kj-010",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-010.webp",
+      "thumb": "assets/img/thumbs/kj-010.webp"
+    },
+    {
+      "id": "kj-038",
+      "cat": "culture",
+      "src": "assets/img/gallery/kj-038.webp",
+      "thumb": "assets/img/thumbs/kj-038.webp"
+    },
+    {
+      "id": "kj-017",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-017.webp",
+      "thumb": "assets/img/thumbs/kj-017.webp"
+    },
+    {
+      "id": "kj-011",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-011.webp",
+      "thumb": "assets/img/thumbs/kj-011.webp"
+    },
+    {
+      "id": "kj-032",
+      "cat": "pro",
+      "src": "assets/img/gallery/kj-032.webp",
+      "thumb": "assets/img/thumbs/kj-032.webp"
+    },
+    {
+      "id": "kj-056",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-056.webp",
+      "thumb": "assets/img/thumbs/kj-056.webp"
+    },
+    {
+      "id": "kj-014",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-014.webp",
+      "thumb": "assets/img/thumbs/kj-014.webp"
+    },
+    {
+      "id": "kj-063",
+      "cat": "enfant",
+      "src": "assets/img/gallery/kj-063.webp",
+      "thumb": "assets/img/thumbs/kj-063.webp"
+    },
+    {
+      "id": "kj-052",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-052.webp",
+      "thumb": "assets/img/thumbs/kj-052.webp"
+    },
+    {
+      "id": "kj-053",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-053.webp",
+      "thumb": "assets/img/thumbs/kj-053.webp"
+    },
+    {
+      "id": "kj-006",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-006.webp",
+      "thumb": "assets/img/thumbs/kj-006.webp"
+    },
+    {
+      "id": "kj-078",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-078.webp",
+      "thumb": "assets/img/thumbs/kj-078.webp"
+    },
+    {
+      "id": "kj-080",
+      "cat": "portrait",
+      "src": "assets/img/gallery/kj-080.webp",
+      "thumb": "assets/img/thumbs/kj-080.webp"
+    }
+  ],
+  "packages": [
+    {
+      "id": "pack-anniv",
+      "name": "Pack Anniversaire",
+      "price": 5000,
+      "description": "Pour immortaliser votre anniversaire.",
+      "items": [
+        "3 photos anniversaire",
+        "Maquillage inclus"
+      ],
+      "highlight": false
+    },
+    {
+      "id": "pack-tenues",
+      "name": "Pack Multi-tenues",
+      "price": 10000,
+      "description": "Variez les looks pendant une même séance.",
+      "items": [
+        "5 photos",
+        "3 tenues"
+      ],
+      "highlight": true
+    }
+  ],
+  "studio": [],
+  "currency": "FCFA"
+}

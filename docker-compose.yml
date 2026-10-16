@@ -1,0 +1,13 @@
+services:
+  kjpictures:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Mot de passe utilisé seulement au premier démarrage (changez-le ensuite dans l'admin)
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Définissez ADMIN_PASSWORD dans le fichier .env}
+    volumes:
+      - kj-data:/data
+volumes:
+  kj-data:

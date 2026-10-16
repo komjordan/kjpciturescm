@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — KJ Pictures</title>
+  <link rel="icon" type="image/png" href="../assets/img/brand/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Connexion -->
+  <section class="login" id="login" hidden>
+    <form class="login__box" id="loginForm">
+      <img src="../assets/img/brand/logo-gold.webp" alt="KJ Pictures" width="96" height="96">
+      <h1>Espace admin</h1>
+      <label>Mot de passe<input type="password" name="password" autocomplete="current-password" required autofocus></label>
+      <button class="btn btn--gold" type="submit">Se connecter</button>
+      <p class="login__error" id="loginError" role="alert"></p>
+      <a class="login__back" href="../">← Retour au site</a>
+    </form>
+  </section>
+
+  <!-- Application -->
+  <div class="app" id="app" hidden>
+    <header class="top">
+      <a class="top__brand" href="../" target="_blank" rel="noopener"><img src="../assets/img/brand/logo-gold.webp" alt="" width="38" height="38"><span>KJ <em>Pictures</em> · Admin</span></a>
+      <nav class="tabs" role="tablist">
+        <button class="tab is-active" data-tab="photos">📷 Photos</button>
+        <button class="tab" data-tab="categories">🏷️ Catégories</button>
+        <button class="tab" data-tab="packages">💰 Packages</button>
+        <button class="tab" data-tab="studio">🎬 Studio &amp; matériel</button>
+        <button class="tab" data-tab="account">🔒 Compte</button>
+      </nav>
+      <div class="top__actions">
+        <a class="btn btn--ghost btn--sm" href="../" target="_blank" rel="noopener">Voir le site ↗</a>
+        <button class="btn btn--ghost btn--sm" id="logout">Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- PHOTOS -->
+      <section class="panel is-active" data-panel="photos">
+        <div class="panel__head">
+          <div>
+            <h2>Photos du portfolio</h2>
+            <p class="hint">Glissez-déposez les photos pour changer leur ordre sur le site. Les nouvelles photos apparaissent en premier.</p>
+          </div>
+        </div>
+        <form class="upload" id="photoUpload">
+          <label class="drop" id="photoDrop">
+            <input type="file" name="photos" accept="image/*" multiple>
+            <span class="drop__icon">⬆</span>
+            <strong>Ajouter des photos</strong>
+            <small>Cliquez ou glissez vos images ici (JPG, PNG, WebP, HEIC · 20 Mo max)</small>
+            <span class="drop__files" data-files></span>
+          </label>
+          <div class="upload__side">
+            <label>Catégorie<select name="cat" id="uploadCat" required></select></label>
+            <button class="btn btn--gold" type="submit">Envoyer</button>
+          </div>
+        </form>
+        <div class="toolbar">
+          <label>Afficher<select id="photoFilter"><option value="all">Toutes les catégories</option></select></label>
+          <span class="count" id="photoTotal"></span>
+        </div>
+        <p class="hint hint--warn" id="reorderHint" hidden>Pour réorganiser, affichez « Toutes les catégories ».</p>
+        <div class="grid" id="photoGrid"></div>
+      </section>
+
+      <!-- CATÉGORIES -->
+      <section class="panel" data-panel="categories">
+        <div class="panel__head">
+          <div>
+            <h2>Catégories</h2>
+            <p class="hint">Ce sont les filtres du portfolio (Mariage, Anniversaire…). Glissez-déposez pour changer l'ordre des filtres.</p>
+          </div>
+        </div>
+        <form class="inline-form" id="catForm">
+          <input name="label" placeholder="Nouvelle catégorie (ex. Mariage)" maxlength="60" required>
+          <button class="btn btn--gold" type="submit">Ajouter</button>
+        </form>
+        <ul class="list" id="catList"></ul>
+      </section>
+
+      <!-- PACKAGES -->
+      <section class="panel" data-panel="packages">
+        <div class="panel__head">
+          <div>
+            <h2>Packages</h2>
+            <p class="hint">Vos formules affichées dans la section « Nos packages ». Glissez-déposez pour les réordonner.</p>
+          </div>
+          <button class="btn btn--gold" id="newPack">+ Nouveau package</button>
+        </div>
+        <div class="packs" id="packList"></div>
+      </section>
+
+      <!-- STUDIO -->
+      <section class="panel" data-panel="studio">
+        <div class="panel__head">
+          <div>
+            <h2>Studio &amp; matériel</h2>
+            <p class="hint">Photos de votre studio, de vos décors et de vos appareils, affichées dans la section « Le studio ».</p>
+          </div>
+        </div>
+        <form class="upload" id="studioUpload">
+          <label class="drop">
+            <input type="file" name="photos" accept="image/*" multiple>
+            <span class="drop__icon">⬆</span>
+            <strong>Ajouter des photos du studio</strong>
+            <small>Cliquez ou glissez vos images ici</small>
+            <span class="drop__files" data-files></span>
+          </label>
+          <div class="upload__side">
+            <label>Légende (facultatif)<input name="caption" maxlength="120" placeholder="ex. Canon EOS R6"></label>
+            <button class="btn btn--gold" type="submit">Envoyer</button>
+          </div>
+        </form>
+        <div class="grid" id="studioGrid"></div>
+      </section>
+
+      <!-- COMPTE -->
+      <section class="panel" data-panel="account">
+        <div class="panel__head"><div><h2>Mot de passe</h2><p class="hint">Changez régulièrement votre mot de passe (10 caractères minimum).</p></div></div>
+        <form class="card-form" id="pwdForm">
+          <label>Mot de passe actuel<input type="password" name="current" autocomplete="current-password" required></label>
+          <label>Nouveau mot de passe<input type="password" name="next" autocomplete="new-password" minlength="10" required></label>
+          <button class="btn btn--gold" type="submit">Mettre à jour</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Fenêtre package -->
+  <dialog class="modal" id="packModal">
+    <form method="dialog" class="modal__box" id="packForm">
+      <h3 id="packTitle">Nouveau package</h3>
+      <label>Nom<input name="name" maxlength="80" required placeholder="ex. Pack Anniversaire"></label>
+      <label>Prix (FCFA)<input name="price" type="number" min="0" step="500" required placeholder="5000"></label>
+      <label>Description courte<input name="description" maxlength="300" placeholder="ex. Pour immortaliser votre anniversaire."></label>
+      <label>Ce qui est inclus <small>(une ligne par élément)</small><textarea name="items" rows="5" placeholder="3 photos retouchées&#10;Maquillage inclus"></textarea></label>
+      <label class="check"><input type="checkbox" name="highlight"> Mettre en avant (badge « Populaire »)</label>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" value="cancel" formnovalidate>Annuler</button>
+        <button class="btn btn--gold" value="save" id="packSave">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
