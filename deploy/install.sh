@@ -4,6 +4,7 @@
 #   bash install.sh kjpictures.duckdns.org
 # Options (variables d'environnement) :
 #   APP_PORT=3000   port interne du site (changez-le s'il est déjà pris)
+#   ADMIN_PASSWORD  mot de passe admin initial, sans saisie au clavier (10 caractères min.)
 #   BRANCH=...      branche Git à déployer
 set -euo pipefail
 
@@ -76,10 +77,20 @@ systemctl daemon-reload
 
 if [ ! -f "$DATA/admin.json" ]; then
   echo "==> Mot de passe administrateur"
-  until runuser -u kjpictures -- env STORAGE_DIR="$DATA" node server/set-password.js </dev/tty; do
-    echo "Recommencez."
-  done
+  if [ -n "${ADMIN_PASSWORD:-}" ]; then
+    # Mode non interactif (automatisation) : ADMIN_PASSWORD=... bash install.sh domaine
+    [ "${#ADMIN_PASSWORD}" -ge 10 ] || { echo "✖ ADMIN_PASSWORD doit faire au moins 10 caractères."; exit 1; }
+    printf '%s\n%s\n' "$ADMIN_PASSWORD" "$ADMIN_PASSWORD" | runuser -u kjpictures -- env STORAGE_DIR="$DATA" node server/set-password.js >/dev/null
+  elif [ -t 0 ] || { : </dev/tty; } 2>/dev/null; then
+    until runuser -u kjpictures -- env STORAGE_DIR="$DATA" node server/set-password.js </dev/tty; do
+      echo "Recommencez."
+    done
+  else
+    echo "✖ Pas de terminal pour saisir le mot de passe : relancez avec ADMIN_PASSWORD=... bash install.sh $DOMAIN"
+    exit 1
+  fi
 fi
+unset ADMIN_PASSWORD
 systemctl enable --now kjpictures
 systemctl restart kjpictures
 
