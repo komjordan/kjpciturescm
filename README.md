@@ -11,7 +11,9 @@
 
 KJ Pictures transforme les moments importants en souvenirs durables : séances au studio, portraits professionnels, événements, shootings famille et créations inspirées de la culture camerounaise.
 
-![Accueil public de KJ Pictures](docs/public/kj-pictures-accueil-public.png)
+![Accueil public de KJ Pictures](docs/public/kj-pictures-accueil-desktop.png)
+
+![Accueil mobile de KJ Pictures](docs/public/kj-pictures-accueil-mobile.png)
 
 ## Une expérience simple pour réserver
 
@@ -28,7 +30,11 @@ Après un mariage, un anniversaire ou une séance, les photos peuvent être part
 
 ![Accès par code à une galerie privée KJ Pictures](docs/public/kj-pictures-galerie-privee-code.png)
 
-Cette capture montre uniquement la page publique d’accès ; elle ne présente aucune photo de client.
+La recherche d’une personne reste privée : les noms sont masqués et les visages dans les aperçus sont volontairement légèrement floutés dans cette présentation publique.
+
+![Aperçu public de la recherche dans une galerie privée](docs/public/kj-pictures-galerie-privee-personnes.png)
+
+Cette présentation n’affiche aucune photo de client identifiable.
 
 ## Développement local
 
