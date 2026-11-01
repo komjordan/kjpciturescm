@@ -30,11 +30,11 @@ Après un mariage, un anniversaire ou une séance, les photos peuvent être part
 
 ![Accès par code à une galerie privée KJ Pictures](docs/public/kj-pictures-galerie-privee-code.png)
 
-La recherche d’une personne reste privée : les noms sont masqués et les visages dans les aperçus sont volontairement légèrement floutés dans cette présentation publique.
+La galerie privée propose aussi une recherche par personne après validation du code d’accès.
 
 ![Aperçu public de la recherche dans une galerie privée](docs/public/kj-pictures-galerie-privee-personnes.png)
 
-Cette présentation n’affiche aucune photo de client identifiable.
+Les captures ont été fournies par KJ Pictures pour présenter cette expérience privée.
 
 ## Développement local
 
